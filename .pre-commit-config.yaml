@@ -1,0 +1,47 @@
+repos:
+  - repo: https://github.com/pre-commit/mirrors-isort
+    rev: v5.10.1
+    hooks:
+      - id: isort
+        args: ["--profile", "black", "--line-length=79"]
+        exclude: "tests/.*"
+
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: v0.1.0
+    hooks:
+      - id: ruff
+        args: ["--fix", "--line-length=79"]
+        exclude: "tests/.*"
+
+  - repo: https://github.com/psf/black
+    rev: 23.11.0
+    hooks:
+      - id: black
+        args: ["--line-length=79"]
+        exclude: "tests/.*"
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.6.1
+    hooks:
+      - id: mypy
+        exclude:  "^(tests/|alembic/)"
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: check-yaml
+        exclude: "tests/.*"
+      - id: check-merge-conflict
+        exclude: "tests/.*"
+      - id: check-added-large-files
+        exclude: "tests/.*"
+      - id: debug-statements
+        exclude: "tests/.*"
+
+  - repo: local
+    hooks:
+      - id: pytest
+        name: Run Pytest
+        entry: poetry run pytest
+        language: system
+        pass_filenames: false
